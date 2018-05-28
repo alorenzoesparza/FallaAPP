@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="FallaAPP.Views.MenuPage"
+    BindingContext="{Binding Main, Source={StaticResource Locator}}"
+    BackgroundColor="Navy"
+    Title="Menú">
+    <ContentPage.Content>
+        <StackLayout
+            Padding="5,20,5,5">
+            <Image
+                HeightRequest="100"
+                Source="falla">
+            </Image>
+            <ListView
+                BackgroundColor="Navy"
+                HasUnevenRows="True"
+                ItemsSource="{Binding Menus}"
+                SeparatorVisibility="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                    Source="{Binding Icono}"
+                                    HeightRequest="50"
+                                    WidthRequest="50">
+                                </Image>
+                                <Label
+                                    Grid.Column="1"
+                                    Text="{Binding Titulo}"
+                                    TextColor="White"
+                                    VerticalOptions="Center">
+                                </Label>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
