@@ -9,7 +9,7 @@ namespace FallaAPP.ViewModels
         #region ViewModels
         public LoginViewModel Login { get; set; }
         public ActsViewModel Acts { get; set; }
-        //public ActViewModel Act { get; set; }
+        public ActViewModel Act { get; set; }
         #endregion
 
         #region Propiedades
@@ -52,6 +52,7 @@ namespace FallaAPP.ViewModels
         }
 
         #endregion
+
         #region Singleton
         private static MainViewModel instance;
 

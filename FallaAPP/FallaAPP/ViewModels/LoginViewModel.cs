@@ -145,21 +145,19 @@ namespace FallaAPP.ViewModels
                 this.Password = string.Empty;
                 return;
             }
-            var mainViewModel = MainViewModel.GetInstance();
-            MainViewModel.GetInstance().Acts = new ActsViewModel();
 
-            //mainViewModel.Token = token;
-            //mainViewModel.Acts = new ActsViewModel();
-            //await Application.Current.MainPage.Navigation.PushAsync(new ActsPage());
+            var mainViewModel = MainViewModel.GetInstance();
+
             mainViewModel.Token = token.AccessToken;
             mainViewModel.TokenType = token.TokenType;
+            mainViewModel.Acts = new ActsViewModel();
+
+            await Application.Current.MainPage.Navigation.PushAsync(new ActsPage());
 
             this.IsRunning = false;
             this.IsEnabled = true;
             this.Email = string.Empty;
             this.Password = string.Empty;
-
-            await Application.Current.MainPage.Navigation.PushAsync(new ActsPage());
         }
 
         public ICommand RegisterCommand { get; set; }

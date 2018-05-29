@@ -9,7 +9,7 @@
         <ScrollView
             BindingContext="{Binding Login}">
             <StackLayout
-                Padding="5">
+                Padding="5,0,0,10">
                 <Label
                     FontAttributes="Bold"
                     FontSize="Medium"

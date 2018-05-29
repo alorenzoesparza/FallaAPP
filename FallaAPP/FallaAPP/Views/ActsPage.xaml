@@ -9,6 +9,14 @@
     <ContentPage.Content>
         <StackLayout
             BindingContext="{Binding Acts}">
+            <SearchBar
+                BackgroundColor="Silver"
+                Placeholder="Descripción o fecha..."
+                PlaceholderColor="White"
+                SearchCommand="{Binding SearchCommand}"
+                Text="{Binding Filter, Mode=TwoWay}"
+                TextColor="White">
+            </SearchBar>
             <ListView
                 BackgroundColor="Silver"
                 HasUnevenRows="True"
@@ -20,38 +28,44 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Grid
-                                Margin="0,10,0,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Image 
-                                    Grid.Column="0"
-                                    HorizontalOptions="Start"
-                                    Source="{Binding Imagen}"
-                                    WidthRequest="100">
-                                    <Image.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding SelectActCommand}"/>
-                                    </Image.GestureRecognizers>
-                                </Image>
-                                <Label
-                                    FontAttributes="Bold"
-                                    FontSize="Medium"
-                                    Grid.Column="1"
-                                    HorizontalOptions="FillAndExpand"
-                                    Text="{Binding Titular}"
-                                    VerticalOptions="Center">
-                                </Label>
-                                <Label 
-                                    FontSize="Medium"
-                                    Grid.Column="2"
-                                    HorizontalOptions="FillAndExpand"
-                                    Text="{Binding FechaActo, StringFormat='\{0:dd/MM/yyyy}'}"
-                                    VerticalOptions="Center">
-                                </Label>
-                            </Grid>
+                            <Frame
+                                CornerRadius="23"
+                                HasShadow="True"
+                                Margin="0,5,0,0">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectActCommand}"/>
+                                </Frame.GestureRecognizers>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Image 
+                                        Grid.Column="0"
+                                        HorizontalOptions="Start"
+                                        Source="{Binding ImagenFullPath}"
+                                        WidthRequest="80">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding SelectActCommand}"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                    <Label
+                                        FontSize="Small"
+                                        Grid.Column="1"
+                                        HorizontalOptions="FillAndExpand"
+                                        Text="{Binding Titular}"
+                                        VerticalOptions="Center">
+                                    </Label>
+                                    <Label
+                                        FontSize="Small"
+                                        Grid.Column="2"
+                                        HorizontalOptions="FillAndExpand"
+                                        Text="{Binding FechaActo, StringFormat='\{0:dd/MM/yyyy}'}"
+                                        VerticalOptions="Center">
+                                    </Label>
+                                </Grid>
+                            </Frame>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

@@ -1,10 +1,13 @@
 ﻿using FallaAPP.Models;
 using FallaAPP.Services;
 using FallaAPP.Views;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace FallaAPP.ViewModels
@@ -16,15 +19,27 @@ namespace FallaAPP.ViewModels
         #endregion
 
         #region Atributos
-        private ObservableCollection<Act> acts;
+        private ObservableCollection<ActItemViewModel> acts;
         private bool isRefreshing;
+        private string filter;
+        private List<Act> actsList;
         #endregion
 
         #region Propiedades
-        public ObservableCollection<Act> Acts
+        public ObservableCollection<ActItemViewModel> Acts
         {
             get { return this.acts; }
             set { SetValue(ref this.acts, value); }
+        }
+
+        public string Filter
+        {
+            get { return this.filter; }
+            set
+            {
+                SetValue(ref this.filter, value);
+                this.Search();
+            }
         }
 
         public bool IsRefreshing
@@ -61,13 +76,13 @@ namespace FallaAPP.ViewModels
                 return;
             }
 
-            var mainViewModel = MainViewModel.GetInstance();
+            
             var response = await this.apiService.GetList<Act>(
-                mainViewModel.BaseUrl,
+                MainViewModel.GetInstance().BaseUrl,
                 "/api",
                 "/Acts",
-                mainViewModel.TokenType,
-                mainViewModel.Token);
+                MainViewModel.GetInstance().TokenType,
+                MainViewModel.GetInstance().Token);
 
             if (!response.IsSuccess)
             {
@@ -80,11 +95,68 @@ namespace FallaAPP.ViewModels
                 return;
             }
 
-            var list = (List<Act>)response.Result;
-            this.Acts = new ObservableCollection<Act>(list);
+            this.actsList = (List<Act>)response.Result;
+            this.Acts = new ObservableCollection<ActItemViewModel>(
+                this.ToItemViewModel());
 
-            await Application.Current.MainPage.Navigation.PushAsync(new ActsPage());
+            //await Application.Current.MainPage.Navigation.PushAsync(new ActsPage());
             this.IsRefreshing = false;
+        }
+        #endregion
+
+        #region Metodos
+        private IEnumerable<ActItemViewModel> ToItemViewModel()
+        {
+            return this.actsList.Select(a => new ActItemViewModel
+            {
+                ActoOficial = a.ActoOficial,
+                Descripcion = a.Descripcion,
+                FechaActo = a.FechaActo,
+                HoraActo = a.HoraActo,
+                IdAct = a.IdAct,
+                Imagen = a.Imagen,
+                Imagen500 = a.Imagen500,
+                PagInicio = a.PagInicio,
+                Precio = a.Precio,
+                PrecioInfantiles = a.PrecioInfantiles,
+                Titular = a.Titular,
+                YaEfectuado = a.YaEfectuado,
+            });
+        }
+        #endregion
+
+        #region Comandos
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                return new RelayCommand(LoadActs);
+            }
+        }
+
+        public ICommand SearchCommand
+        {
+            get
+            {
+                return new RelayCommand(Search);
+            }
+        }
+
+        private void Search()
+        {
+            if (string.IsNullOrEmpty(this.Filter))
+            {
+                this.Acts = new ObservableCollection<ActItemViewModel>(
+                    this.ToItemViewModel());
+            }
+            else
+            {
+                this.Acts = new ObservableCollection<ActItemViewModel>(
+                    this.ToItemViewModel().
+                    Where(
+                        a => a.Descripcion.ToLower().Contains(this.Filter.ToLower()) || 
+                             a.StrFecha.Contains(this.Filter)));
+            }
         }
         #endregion
     }

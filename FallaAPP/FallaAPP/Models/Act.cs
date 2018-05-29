@@ -10,6 +10,13 @@ namespace FallaAPP.Models
         public string Titular { get; set; }
         public string Descripcion { get; set; }
         public DateTime FechaActo { get; set; }
+        public string StrFecha
+        {
+            get
+            {
+                return string.Format("{0:d}", FechaActo);
+            }
+        }
         public string HoraActo { get; set; }
         public string Precio { get; set; }
         public string PrecioInfantiles { get; set; }
@@ -20,11 +27,10 @@ namespace FallaAPP.Models
             get
             {
                 return string.Format(
-                    "http://antoniole.com/Falla/{0}",
-                    Imagen500.Substring(1));
+                    "http://antoniole.com/{0}",
+                    Imagen.Substring(1));
             }
         }
-        public object ImagenFile { get; set; }
         public string Imagen500 { get; set; }
         public bool PagInicio { get; set; }
         public bool YaEfectuado { get; set; }
