@@ -18,8 +18,8 @@ namespace FallaAPP.Models
             }
         }
         public string HoraActo { get; set; }
-        public string Precio { get; set; }
-        public string PrecioInfantiles { get; set; }
+        public double? Precio { get; set; }
+        public double? PrecioInfantiles { get; set; }
         public bool ActoOficial { get; set; }
         public string Imagen { get; set; }
         public string ImagenFullPath

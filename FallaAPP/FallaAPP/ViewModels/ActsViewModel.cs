@@ -79,7 +79,7 @@ namespace FallaAPP.ViewModels
             
             var response = await this.apiService.GetList<Act>(
                 MainViewModel.GetInstance().BaseUrl,
-                "/api",
+                MainViewModel.GetInstance().ApiUrl,
                 "/Acts",
                 MainViewModel.GetInstance().TokenType,
                 MainViewModel.GetInstance().Token);
@@ -98,8 +98,7 @@ namespace FallaAPP.ViewModels
             this.actsList = (List<Act>)response.Result;
             this.Acts = new ObservableCollection<ActItemViewModel>(
                 this.ToItemViewModel());
-
-            //await Application.Current.MainPage.Navigation.PushAsync(new ActsPage());
+           
             this.IsRefreshing = false;
         }
         #endregion

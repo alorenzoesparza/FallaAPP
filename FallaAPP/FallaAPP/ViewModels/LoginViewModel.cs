@@ -152,7 +152,8 @@ namespace FallaAPP.ViewModels
             mainViewModel.TokenType = token.TokenType;
             mainViewModel.Acts = new ActsViewModel();
 
-            await Application.Current.MainPage.Navigation.PushAsync(new ActsPage());
+            //await Application.Current.MainPage.Navigation.PushAsync(new ActsPage());
+            Application.Current.MainPage = new MasterPage();
 
             this.IsRunning = false;
             this.IsEnabled = true;

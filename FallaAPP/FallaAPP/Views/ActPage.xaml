@@ -89,7 +89,7 @@
                         Grid.Column="1"
                         Grid.Row="1"
                         HorizontalOptions="End"
-                        Text="{Binding Act.Precio, StringFormat='{0:0.00} €'}" 
+                        Text="{Binding Act.Precio, StringFormat='{0:C2}'}" 
                         VerticalOptions="Center"/>
                     <Label
                         FontAttributes="Bold"
@@ -104,7 +104,7 @@
                         Grid.Column="3"
                         Grid.Row="1"
                         HorizontalOptions="Center"
-                        Text="{Binding Act.PrecioInfantiles, StringFormat='{0:0.00} €'}" 
+                        Text="{Binding Act.PrecioInfantiles, StringFormat='{0:C2}'}" 
                         VerticalOptions="Center"/>
                 </Grid>
             </StackLayout>

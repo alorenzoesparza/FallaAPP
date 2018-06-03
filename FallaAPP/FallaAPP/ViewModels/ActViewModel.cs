@@ -1,16 +1,14 @@
 ﻿using FallaAPP.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Collections.ObjectModel;
 
 namespace FallaAPP.ViewModels
 {
-    public class ActViewModel
+    public class ActViewModel : BaseViewModel
     {
         #region Propiedades
-        //private ActItemViewModel actItemViewModel;
         public Act Act { get; set; }
         #endregion
+
         #region Constructor
         public ActViewModel(Act act)
         {

@@ -8,7 +8,7 @@ namespace FallaAPP
     public partial class App : Application
 	{
         #region Propiedades
-        public static object Navigator { get; internal set; }
+        public static NavigationPage Navigator { get; internal set; }
         #endregion
 
         #region Constructor
@@ -16,11 +16,8 @@ namespace FallaAPP
         {
             InitializeComponent();
 
-            //MainPage = new NavigationPage(new MasterPage());
-            //MainPage = new MasterPage();
             MainPage = new NavigationPage(new LoginPage());
         }
-
         #endregion
 
         #region Metodos
@@ -38,7 +35,6 @@ namespace FallaAPP
         {
             // Handle when your app resumes
         }
-
         #endregion
     }
 }
