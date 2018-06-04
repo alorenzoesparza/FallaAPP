@@ -1,4 +1,5 @@
-﻿using FallaAPP.Services;
+﻿using FallaAPP.Helpers;
+using FallaAPP.Services;
 using FallaAPP.Views;
 using GalaSoft.MvvmLight.Command;
 using System.Windows.Input;
@@ -150,6 +151,14 @@ namespace FallaAPP.ViewModels
 
             mainViewModel.Token = token.AccessToken;
             mainViewModel.TokenType = token.TokenType;
+            
+            if (this.IsRemembered)
+            {
+                // Guardar en persistencia el Token
+                Settings.Token = token.AccessToken;
+                Settings.TokenType = token.TokenType;
+            }
+
             mainViewModel.Acts = new ActsViewModel();
 
             //await Application.Current.MainPage.Navigation.PushAsync(new ActsPage());

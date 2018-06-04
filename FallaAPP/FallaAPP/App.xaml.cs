@@ -1,3 +1,5 @@
+using FallaAPP.Helpers;
+using FallaAPP.ViewModels;
 using FallaAPP.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -16,7 +18,19 @@ namespace FallaAPP
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new LoginPage());
+            if (string.IsNullOrEmpty(Settings.Token))
+            {
+                MainPage = new NavigationPage(new LoginPage());
+            }
+            else
+            {
+                var mainViewModel = MainViewModel.GetInstance();
+                mainViewModel.Token = Settings.Token;
+                mainViewModel.TokenType = Settings.TokenType;
+                mainViewModel.Acts = new ActsViewModel();
+
+                MainPage = new MasterPage();
+            }
         }
         #endregion
 
