@@ -2,13 +2,13 @@
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="FallaAPP.Views.ActsPage"
+    x:Class="FallaAPP.Views.EventosPage"
     BindingContext="{Binding Main, Source={StaticResource Locator}}"
     BackgroundColor="Silver"
     Title="Próximos Eventos">
     <ContentPage.Content>
         <StackLayout
-            BindingContext="{Binding Acts}">
+            BindingContext="{Binding Eventos}">
             <SearchBar
                 BackgroundColor="Silver"
                 Placeholder="Descripción o fecha..."
@@ -22,7 +22,7 @@
                 HasUnevenRows="True"
                 IsPullToRefreshEnabled="True"
                 IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
-                ItemsSource="{Binding Acts}"
+                ItemsSource="{Binding Eventos}"
                 RefreshCommand="{Binding RefreshCommand}"
                 SeparatorVisibility="None">
                 <ListView.ItemTemplate>
@@ -33,7 +33,7 @@
                                 HasShadow="True"
                                 Margin="0,5,0,0">
                                 <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding SelectActCommand}"/>
+                                    <TapGestureRecognizer Command="{Binding SelectEventoCommand}"/>
                                 </Frame.GestureRecognizers>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -47,7 +47,7 @@
                                         Source="{Binding ImagenFullPath}"
                                         WidthRequest="80">
                                         <Image.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding SelectActCommand}"/>
+                                            <TapGestureRecognizer Command="{Binding SelectEventoCommand}"/>
                                         </Image.GestureRecognizers>
                                     </Image>
                                     <Label
@@ -61,7 +61,7 @@
                                         FontSize="Small"
                                         Grid.Column="2"
                                         HorizontalOptions="FillAndExpand"
-                                        Text="{Binding FechaActo, StringFormat='\{0:dd/MM/yyyy}'}"
+                                        Text="{Binding FechaEvento, StringFormat='\{0:dd/MM/yyyy}'}"
                                         VerticalOptions="Center">
                                     </Label>
                                 </Grid>

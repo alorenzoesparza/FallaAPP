@@ -27,7 +27,7 @@ namespace FallaAPP
                 var mainViewModel = MainViewModel.GetInstance();
                 mainViewModel.Token = Settings.Token;
                 mainViewModel.TokenType = Settings.TokenType;
-                mainViewModel.Acts = new ActsViewModel();
+                mainViewModel.Eventos = new EventosViewModel();
 
                 MainPage = new MasterPage();
             }

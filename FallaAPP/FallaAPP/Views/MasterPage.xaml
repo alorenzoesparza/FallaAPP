@@ -11,7 +11,7 @@
         <NavigationPage 
             x:Name="Navigator">
             <x:Arguments>
-                <pages:ActsPage/>
+                <pages:EventosPage/>
             </x:Arguments>
         </NavigationPage>
     </MasterDetailPage.Detail>

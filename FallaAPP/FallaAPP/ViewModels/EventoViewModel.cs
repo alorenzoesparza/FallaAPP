@@ -3,16 +3,16 @@ using System.Collections.ObjectModel;
 
 namespace FallaAPP.ViewModels
 {
-    public class ActViewModel : BaseViewModel
+    public class EventoViewModel : BaseViewModel
     {
         #region Propiedades
-        public Act Act { get; set; }
+        public Evento Evento { get; set; }
         #endregion
 
         #region Constructor
-        public ActViewModel(Act act)
+        public EventoViewModel(Evento Evento)
         {
-            this.Act = act;
+            this.Evento = Evento;
         }
         #endregion
     }

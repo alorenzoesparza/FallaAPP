@@ -8,8 +8,8 @@ namespace FallaAPP.ViewModels
     {
         #region ViewModels
         public LoginViewModel Login { get; set; }
-        public ActsViewModel Acts { get; set; }
-        public ActViewModel Act { get; set; }
+        public EventosViewModel Eventos { get; set; }
+        public EventoViewModel Evento { get; set; }
         #endregion
 
         #region Propiedades

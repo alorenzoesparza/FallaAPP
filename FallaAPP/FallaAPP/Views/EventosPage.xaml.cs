@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace FallaAPP.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ActPage : ContentPage
+	public partial class EventosPage : ContentPage
 	{
-		public ActPage ()
+		public EventosPage ()
 		{
 			InitializeComponent ();
 		}

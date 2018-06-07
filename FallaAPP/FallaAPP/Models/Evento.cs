@@ -1,26 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FallaAPP.Models
 {
-    public class Act
+    public class Evento
     {
-        public int IdAct { get; set; }
+        public int IdEvento { get; set; }
         public string Titular { get; set; }
         public string Descripcion { get; set; }
-        public DateTime FechaActo { get; set; }
+        public DateTime FechaEvento { get; set; }
         public string StrFecha
         {
             get
             {
-                return string.Format("{0:d}", FechaActo);
+                return string.Format("{0:d}", FechaEvento);
             }
         }
-        public string HoraActo { get; set; }
+        public string HoraEvento { get; set; }
         public double? Precio { get; set; }
         public double? PrecioInfantiles { get; set; }
-        public bool ActoOficial { get; set; }
+        public bool EventoOficial { get; set; }
         public string Imagen { get; set; }
         public string ImagenFullPath
         {

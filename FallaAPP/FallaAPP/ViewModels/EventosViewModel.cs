@@ -12,24 +12,24 @@ using Xamarin.Forms;
 
 namespace FallaAPP.ViewModels
 {
-    public class ActsViewModel : BaseViewModel
+    public class EventosViewModel : BaseViewModel
     {
         #region Servicios
         private ApiService apiService;
         #endregion
 
         #region Atributos
-        private ObservableCollection<ActItemViewModel> acts;
+        private ObservableCollection<EventoItemViewModel> eventos;
         private bool isRefreshing;
         private string filter;
-        private List<Act> actsList;
+        private List<Evento> EventosList;
         #endregion
 
         #region Propiedades
-        public ObservableCollection<ActItemViewModel> Acts
+        public ObservableCollection<EventoItemViewModel> Eventos
         {
-            get { return this.acts; }
-            set { SetValue(ref this.acts, value); }
+            get { return this.eventos; }
+            set { SetValue(ref this.eventos, value); }
         }
 
         public string Filter
@@ -51,16 +51,16 @@ namespace FallaAPP.ViewModels
         #endregion
 
         #region Constructor
-        public ActsViewModel()
+        public EventosViewModel()
         {
             this.apiService = new ApiService();
-            this.LoadActs();
+            this.LoadEventos();
         }
 
         #endregion
 
         #region Metodos
-        private async void LoadActs()
+        private async void LoadEventos()
         {
             this.IsRefreshing = true;
             var connection = await this.apiService.CheckConnection();
@@ -77,10 +77,10 @@ namespace FallaAPP.ViewModels
             }
 
             
-            var response = await this.apiService.GetList<Act>(
+            var response = await this.apiService.GetList<Evento>(
                 MainViewModel.GetInstance().BaseUrl,
                 MainViewModel.GetInstance().ApiUrl,
-                "/Acts",
+                "/Eventos",
                 MainViewModel.GetInstance().TokenType,
                 MainViewModel.GetInstance().Token);
 
@@ -95,8 +95,8 @@ namespace FallaAPP.ViewModels
                 return;
             }
 
-            this.actsList = (List<Act>)response.Result;
-            this.Acts = new ObservableCollection<ActItemViewModel>(
+            this.EventosList = (List<Evento>)response.Result;
+            this.Eventos = new ObservableCollection<EventoItemViewModel>(
                 this.ToItemViewModel());
            
             this.IsRefreshing = false;
@@ -104,15 +104,15 @@ namespace FallaAPP.ViewModels
         #endregion
 
         #region Metodos
-        private IEnumerable<ActItemViewModel> ToItemViewModel()
+        private IEnumerable<EventoItemViewModel> ToItemViewModel()
         {
-            return this.actsList.Select(a => new ActItemViewModel
+            return this.EventosList.Select(a => new EventoItemViewModel
             {
-                ActoOficial = a.ActoOficial,
+                EventoOficial = a.EventoOficial,
                 Descripcion = a.Descripcion,
-                FechaActo = a.FechaActo,
-                HoraActo = a.HoraActo,
-                IdAct = a.IdAct,
+                FechaEvento = a.FechaEvento,
+                HoraEvento = a.HoraEvento,
+                IdEvento = a.IdEvento,
                 Imagen = a.Imagen,
                 Imagen500 = a.Imagen500,
                 PagInicio = a.PagInicio,
@@ -129,7 +129,7 @@ namespace FallaAPP.ViewModels
         {
             get
             {
-                return new RelayCommand(LoadActs);
+                return new RelayCommand(LoadEventos);
             }
         }
 
@@ -145,12 +145,12 @@ namespace FallaAPP.ViewModels
         {
             if (string.IsNullOrEmpty(this.Filter))
             {
-                this.Acts = new ObservableCollection<ActItemViewModel>(
+                this.Eventos = new ObservableCollection<EventoItemViewModel>(
                     this.ToItemViewModel());
             }
             else
             {
-                this.Acts = new ObservableCollection<ActItemViewModel>(
+                this.Eventos = new ObservableCollection<EventoItemViewModel>(
                     this.ToItemViewModel().
                     Where(
                         a => a.Descripcion.ToLower().Contains(this.Filter.ToLower()) || 

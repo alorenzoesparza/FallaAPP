@@ -2,19 +2,19 @@
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="FallaAPP.Views.ActPage"
+    x:Class="FallaAPP.Views.EventoPage"
     BindingContext="{Binding Main, Source={StaticResource Locator}}"
     Title="Evento">
     <ContentPage.Content>
         <ScrollView
-            BindingContext="{Binding Act}">
+            BindingContext="{Binding Evento}">
             <StackLayout
                 Padding="5">
                 <Label
                     FontAttributes="Bold"
                     FontSize="Small"
                     HorizontalOptions="Center"
-                    Text="{Binding Act.Titular}"
+                    Text="{Binding Evento.Titular}"
                     TextColor="Black">
                 </Label>
                 <Grid
@@ -35,7 +35,7 @@
                         FontSize="Default"
                         Grid.Column="1"
                         Grid.Row="0"
-                        Text="{Binding Act.Descripcion, Mode=TwoWay}" 
+                        Text="{Binding Evento.Descripcion, Mode=TwoWay}" 
                         VerticalOptions="Center"/>
                 </Grid>
                 <Grid
@@ -59,7 +59,7 @@
                         Grid.Column="1"
                         Grid.Row="0"
                         HorizontalOptions="Start"
-                        Text="{Binding Act.FechaActo, StringFormat='\{0:dd/MM/yyyy}'}" 
+                        Text="{Binding Evento.FechaEvento, StringFormat='\{0:dd/MM/yyyy}'}" 
                         VerticalOptions="Center"/>
                     <Label
                         FontAttributes="Bold"
@@ -74,7 +74,7 @@
                         Grid.Column="3"
                         Grid.Row="0"
                         HorizontalOptions="Center"
-                        Text="{Binding Act.HoraActo}" 
+                        Text="{Binding Evento.HoraEvento}" 
                         VerticalOptions="Center"/>
                     <Label
                         FontAttributes="Bold"
@@ -89,7 +89,7 @@
                         Grid.Column="1"
                         Grid.Row="1"
                         HorizontalOptions="End"
-                        Text="{Binding Act.Precio, StringFormat='{0:C2}'}" 
+                        Text="{Binding Evento.Precio, StringFormat='{0:C2}'}" 
                         VerticalOptions="Center"/>
                     <Label
                         FontAttributes="Bold"
@@ -104,7 +104,7 @@
                         Grid.Column="3"
                         Grid.Row="1"
                         HorizontalOptions="Center"
-                        Text="{Binding Act.PrecioInfantiles, StringFormat='{0:C2}'}" 
+                        Text="{Binding Evento.PrecioInfantiles, StringFormat='{0:C2}'}" 
                         VerticalOptions="Center"/>
                 </Grid>
             </StackLayout>

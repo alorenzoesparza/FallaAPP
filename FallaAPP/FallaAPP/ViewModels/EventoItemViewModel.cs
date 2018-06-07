@@ -9,21 +9,21 @@ using Xamarin.Forms;
 
 namespace FallaAPP.ViewModels
 {
-    public class ActItemViewModel : Act
+    public class EventoItemViewModel : Evento
     {
         #region Comandos
-        public ICommand SelectActCommand
+        public ICommand SelectEventoCommand
         {
             get
             {
-                return new RelayCommand(SelectAct);
+                return new RelayCommand(SelectEvento);
             }
         }
 
-        private async void SelectAct()
+        private async void SelectEvento()
         {
-            MainViewModel.GetInstance().Act = new ActViewModel(this);
-            await App.Navigator.PushAsync(new ActPage());
+            MainViewModel.GetInstance().Evento = new EventoViewModel(this);
+            await App.Navigator.PushAsync(new EventoPage());
             return;
         }
         #endregion
