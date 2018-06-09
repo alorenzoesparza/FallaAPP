@@ -2,6 +2,7 @@
 using FallaAPP.Services;
 using FallaAPP.Views;
 using GalaSoft.MvvmLight.Command;
+using System;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -117,8 +118,10 @@ namespace FallaAPP.ViewModels
                 return;
             }
 
+            var apiBase = Application.Current.Resources["APIBase"].ToString();
+
             var token = await this.apiService.GetToken(
-                "http://api.antoniole.com",
+                apiBase,
                 this.Email,
                 this.Password);
 
@@ -168,7 +171,19 @@ namespace FallaAPP.ViewModels
             this.Password = string.Empty;
         }
 
-        public ICommand RegisterCommand { get; set; }
+        public ICommand RegistroCommand
+        {
+            get
+            {
+                return new RelayCommand(Registro);
+            }
+        }
+
+        private async void Registro()
+        {
+            MainViewModel.GetInstance().Registro = new RegistroViewModel();
+            await Application.Current.MainPage.Navigation.PushAsync(new RegistroPage());
+        }
         #endregion
     }
 }

@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using 
 using Foundation;
 using UIKit;
+using ImageCircle.Forms.Plugin.iOS;
 
 namespace FallaAPP.iOS
 {
@@ -23,6 +25,8 @@ namespace FallaAPP.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            //CachedImageRenderer.Init();
+            ImageCircleRenderer.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

@@ -10,11 +10,10 @@ namespace FallaAPP.ViewModels
         public LoginViewModel Login { get; set; }
         public EventosViewModel Eventos { get; set; }
         public EventoViewModel Evento { get; set; }
+        public RegistroViewModel Registro { get; set; }
         #endregion
 
         #region Propiedades
-        public string BaseUrl { get; set; }
-        public string ApiUrl { get; set; }
         public string Token { get; set; }
         public string TokenType { get; set; }
         public ObservableCollection<MenuItemViewModel> Menus { get; set; }
@@ -25,8 +24,6 @@ namespace FallaAPP.ViewModels
         {
             instance = this;
 
-            BaseUrl = "http://api.antoniole.com";
-            ApiUrl = "/api";
             this.Login = new LoginViewModel();
             this.LoadMenu();
         }

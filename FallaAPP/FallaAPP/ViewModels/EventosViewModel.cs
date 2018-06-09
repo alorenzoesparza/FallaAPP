@@ -76,10 +76,11 @@ namespace FallaAPP.ViewModels
                 return;
             }
 
-            
+            var apiBase = Application.Current.Resources["APIBase"].ToString();
+
             var response = await this.apiService.GetList<Evento>(
-                MainViewModel.GetInstance().BaseUrl,
-                MainViewModel.GetInstance().ApiUrl,
+                apiBase,
+                "/api",
                 "/Eventos",
                 MainViewModel.GetInstance().TokenType,
                 MainViewModel.GetInstance().Token);
