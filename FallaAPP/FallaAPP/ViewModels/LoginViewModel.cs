@@ -59,8 +59,8 @@ namespace FallaAPP.ViewModels
             this.IsEnabled = true;
             this.IsRunning = false;
 
-            this.Email = "alorenzoesparza@ono.com";
-            this.Password = "Antonio1.";
+            this.Email = "mariam@gmail.com";
+            this.Password = "Mariam1*";
         }
         #endregion
 
@@ -82,8 +82,20 @@ namespace FallaAPP.ViewModels
 
                 await Application.Current.MainPage.DisplayAlert(
                     "Error",
-                    "You must enter an Email",
-                    "Accept");
+                    "Debes introducir un correo electrónico.",
+                    "Aceptar");
+                return;
+            }
+
+            if (!RegexUtilities.ValidarEmail(this.Email))
+            {
+                this.IsRunning = false;
+                this.IsEnabled = true;
+
+                await Application.Current.MainPage.DisplayAlert(
+                    "Error",
+                    "Introduzca un Email Valido.",
+                    "Aceptar");
                 return;
             }
 
@@ -94,8 +106,8 @@ namespace FallaAPP.ViewModels
 
                 await Application.Current.MainPage.DisplayAlert(
                     "Error",
-                    "You must enter a password.",
-                    "Accept");
+                    "Debes introducir una contraseña.",
+                    "Aceptar");
                 this.Password = string.Empty;
                 return;
             }
@@ -114,7 +126,7 @@ namespace FallaAPP.ViewModels
                 await Application.Current.MainPage.DisplayAlert(
                     "Error",
                     connection.Message,
-                    "Accept");
+                    "Aceptar");
                 return;
             }
 
@@ -132,8 +144,8 @@ namespace FallaAPP.ViewModels
 
                 await Application.Current.MainPage.DisplayAlert(
                     "Error",
-                    "The service is not ready. Retry later.",
-                    "Accept");
+                    "El servicio no está listo. Reintentetelo más tarde.",
+                    "Aceptar");
                 return;
             }
 
@@ -150,10 +162,17 @@ namespace FallaAPP.ViewModels
                 return;
             }
 
+            var componente = await this.apiService.GetComponentePorEmail(
+                apiBase, 
+                "/api",
+                "/Componentes/GetComponentePorEmail", 
+                this.Email);
+
             var mainViewModel = MainViewModel.GetInstance();
 
             mainViewModel.Token = token.AccessToken;
             mainViewModel.TokenType = token.TokenType;
+            mainViewModel.Componente = componente;
             
             if (this.IsRemembered)
             {

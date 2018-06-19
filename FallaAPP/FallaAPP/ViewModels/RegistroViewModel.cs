@@ -65,12 +65,17 @@ namespace FallaAPP.ViewModels
             this.IsEnabled = true;
             this.ImageSource = "no_image";
 
+            this.Nombre = "Nerea";
+            this.Apellidos = "Saiz Vilaverde";
+            this.Email = "nerea@gmail.com";
+            this.Password = "Nerea1**";
+            this.Confirm = "Nerea1**";
             this.Registrarse();
         }
         #endregion
 
         #region Metodos
-        public async void Registrarse()
+        public void Registrarse()
         {
             byte[] imageArray = null;
             if (this.file != null)
@@ -272,7 +277,7 @@ namespace FallaAPP.ViewModels
                 await Application.Current.MainPage.DisplayAlert(
                     "Error",
                     connection.Message,
-                    "Accept");
+                    "Aceptar");
                 return;
             }
 
@@ -300,6 +305,29 @@ namespace FallaAPP.ViewModels
                 "/Componentes",
                 componente
                 );
+
+            if (!response.IsSuccess)
+            {
+                this.isRunning = false;
+                this.isEnabled = true;
+
+                await Application.Current.MainPage.DisplayAlert(
+                    "Error",
+                    response.Message,
+                    "Aceptar");
+                return;
+            }
+
+            this.isRunning = false;
+            this.isEnabled = true;
+
+            await Application.Current.MainPage.DisplayAlert(
+                "Confirmación",
+                "Has sido registrado correctamente",
+                "Aceptar");
+
+            await Application.Current.MainPage.Navigation.PopAsync();
+
         }
         #endregion
     }

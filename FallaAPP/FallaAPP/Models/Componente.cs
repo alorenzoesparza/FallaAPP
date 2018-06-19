@@ -24,13 +24,13 @@
         {
             get
             {
-                if (string.IsNullOrEmpty(FotoFullPath))
+                if (string.IsNullOrEmpty(Foto))
                 {
                     return "No hay Foto";
                 }
 
                 return string.Format(
-                    "http://api.antoniole.com/{0}",
+                    "http://antoniole.com/{0}",
                     Foto.Substring(1));
             }
         }

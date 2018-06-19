@@ -17,6 +17,7 @@ namespace FallaAPP.ViewModels
         public string Token { get; set; }
         public string TokenType { get; set; }
         public ObservableCollection<MenuItemViewModel> Menus { get; set; }
+        public Componente Componente { get; set; }
         #endregion
 
         #region Constructores
