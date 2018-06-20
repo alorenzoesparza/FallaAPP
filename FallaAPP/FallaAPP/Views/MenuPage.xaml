@@ -16,10 +16,11 @@
                 HeightRequest="200"
                 Source="{Binding Componente.FotoFullPath}">
             </controls:CircleImage>
-                <Label
+            <Label
                 FontAttributes="Bold"
                 FontSize="Medium"
-                Text="{Binding Componente.NombreCompleto, StringFormat='Hola: {0}'}"
+                HorizontalOptions="Center"
+                Text="{Binding Componente.NombreCompleto}"
                 TextColor="White">
             </Label>
             <ListView

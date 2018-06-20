@@ -1,4 +1,6 @@
 using FallaAPP.Helpers;
+using FallaAPP.Models;
+using FallaAPP.Services;
 using FallaAPP.ViewModels;
 using FallaAPP.Views;
 using Xamarin.Forms;
@@ -24,9 +26,13 @@ namespace FallaAPP
             }
             else
             {
+                var dataService = new DataService();
+                var componente = dataService.First<ComponenteLocal>(false);
+                
                 var mainViewModel = MainViewModel.GetInstance();
                 mainViewModel.Token = Settings.Token;
                 mainViewModel.TokenType = Settings.TokenType;
+                mainViewModel.Componente = componente;
                 mainViewModel.Eventos = new EventosViewModel();
 
                 MainPage = new MasterPage();

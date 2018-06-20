@@ -26,6 +26,8 @@ namespace FallaAPP.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.ApplicationName = global::FallaAPP.Droid.Resource.String.ApplicationName;
+			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.Hello = global::FallaAPP.Droid.Resource.String.Hello;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::FallaAPP.Droid.Resource.Attribute.actionBarSize;
 		}
 		
@@ -3979,6 +3981,12 @@ namespace FallaAPP.Droid
 		
 		public partial class String
 		{
+			
+			// aapt resource value: 0x7f0b003d
+			public const int ApplicationName = 2131427389;
+			
+			// aapt resource value: 0x7f0b003c
+			public const int Hello = 2131427388;
 			
 			// aapt resource value: 0x7f0b0015
 			public const int abc_action_bar_home_description = 2131427349;

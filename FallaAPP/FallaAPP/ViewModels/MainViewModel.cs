@@ -17,7 +17,7 @@ namespace FallaAPP.ViewModels
         public string Token { get; set; }
         public string TokenType { get; set; }
         public ObservableCollection<MenuItemViewModel> Menus { get; set; }
-        public Componente Componente { get; set; }
+        public ComponenteLocal Componente { get; set; }
         #endregion
 
         #region Constructores
@@ -38,8 +38,8 @@ namespace FallaAPP.ViewModels
             this.Menus.Add(new MenuItemViewModel
             {
                 Icono = "ic_configuracion",
-                NombrePagina = "ConfigurationPage",
-                Titulo = "Configuración",
+                NombrePagina = "MiPerfilPage",
+                Titulo = "Mí Perfil",
             });
             this.Menus.Add(new MenuItemViewModel
             {

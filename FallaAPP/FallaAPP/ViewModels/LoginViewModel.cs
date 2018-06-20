@@ -12,6 +12,7 @@ namespace FallaAPP.ViewModels
     {
         #region Servicios
         private ApiService apiService;
+        private DataService dataService { get; set; }
         #endregion
 
         #region Atributos
@@ -54,6 +55,7 @@ namespace FallaAPP.ViewModels
         public LoginViewModel()
         {
             apiService = new ApiService();
+            dataService = new DataService();
 
             this.IsRemembered = true;
             this.IsEnabled = true;
@@ -168,17 +170,21 @@ namespace FallaAPP.ViewModels
                 "/Componentes/GetComponentePorEmail", 
                 this.Email);
 
+            var componenteLocal = Converter.ToComponenteLocal(componente);
+
             var mainViewModel = MainViewModel.GetInstance();
 
             mainViewModel.Token = token.AccessToken;
             mainViewModel.TokenType = token.TokenType;
-            mainViewModel.Componente = componente;
+            mainViewModel.Componente = componenteLocal;
             
             if (this.IsRemembered)
             {
                 // Guardar en persistencia el Token
                 Settings.Token = token.AccessToken;
                 Settings.TokenType = token.TokenType;
+                // Guardar en Base de Datos SQLite
+                this.dataService.DeleteAllAndInsert(componenteLocal);
             }
 
             mainViewModel.Eventos = new EventosViewModel();
