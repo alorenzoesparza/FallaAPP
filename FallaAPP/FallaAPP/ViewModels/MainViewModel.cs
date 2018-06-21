@@ -11,6 +11,7 @@ namespace FallaAPP.ViewModels
         public EventosViewModel Eventos { get; set; }
         public EventoViewModel Evento { get; set; }
         public RegistroViewModel Registro { get; set; }
+        public MiPerfilViewModel MiPerfil { get; set; }
         #endregion
 
         #region Propiedades

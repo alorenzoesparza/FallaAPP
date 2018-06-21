@@ -3,12 +3,12 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
-    x:Class="FallaAPP.Views.RegistroPage"
+    x:Class="FallaAPP.Views.MiPerfilPage"
     BindingContext="{Binding Main, Source={StaticResource Locator}}"
-    Title="Registro">
+    Title="Mi Perfil">
     <ContentPage.Content>
         <ScrollView
-            BindingContext="{Binding Registro}">
+            BindingContext="{Binding MiPerfil}">
             <StackLayout
                 Padding="15">
                 <controls:CircleImage
@@ -42,8 +42,7 @@
                     <Entry
                         Grid.Column="1"
                         Grid.Row="0"
-                        Placeholder="Introduce tu Nombre"
-                        Text="{Binding Nombre, Mode=TwoWay}">
+                        Text="{Binding Componente.Nombre, Mode=TwoWay}">
                     </Entry>
                     <Label
                         Grid.Column="0"
@@ -56,7 +55,7 @@
                         Grid.Column="1"
                         Grid.Row="1"
                         Placeholder="Introduce tus apellidos"
-                        Text="{Binding Apellidos, Mode=TwoWay}">
+                        Text="{Binding Componente.Apellidos, Mode=TwoWay}">
                     </Entry>
                     <Label
                         Grid.Column="0"
@@ -70,7 +69,7 @@
                         Grid.Row="2"
                         Keyboard="Email"
                         Placeholder="Introduce tu email"
-                        Text="{Binding Email, Mode=TwoWay}">
+                        Text="{Binding Componente.Email, Mode=TwoWay}">
                     </Entry>
                     <Label
                         Grid.Column="0"
@@ -84,35 +83,7 @@
                         Grid.Row="3"
                         Keyboard="Telephone"
                         Placeholder="Número de teléfono"
-                        Text="{Binding Telefono, Mode=TwoWay}">
-                    </Entry>
-                    <Label
-                        Grid.Column="0"
-                        Grid.Row="4"
-                        FontAttributes="Bold"
-                        Text="Password"
-                        VerticalOptions="Center">
-                    </Label>
-                    <Entry
-                        Grid.Column="1"
-                        Grid.Row="4"
-                        IsPassword="True"
-                        Placeholder="Introduce tu password"
-                        Text="{Binding Password, Mode=TwoWay}">
-                    </Entry>
-                    <Label
-                        Grid.Column="0"
-                        Grid.Row="5"
-                        FontAttributes="Bold"
-                        Text="Confirmar"
-                        VerticalOptions="Center">
-                    </Label>
-                    <Entry
-                        Grid.Column="1"
-                        Grid.Row="5"
-                        IsPassword="True"
-                        Placeholder="Confirmar tu password"
-                        Text="{Binding Confirm, Mode=TwoWay}">
+                        Text="{Binding Componente.Telefono, Mode=TwoWay}">
                     </Entry>
                 </Grid>
                 <ActivityIndicator
@@ -120,7 +91,7 @@
                         VerticalOptions="CenterAndExpand">
                 </ActivityIndicator>
                 <StackLayout
-                    Margin="40,0">
+                    Margin="30,0">
                     <Button
                         BackgroundColor="Green"
                         BorderRadius="23"
@@ -129,6 +100,16 @@
                         HorizontalOptions="FillAndExpand"
                         IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
                         Text="Salvar"
+                        TextColor="White">
+                    </Button>
+                    <Button
+                        BackgroundColor="Red"
+                        BorderRadius="23"
+                        Command="{Binding CambiarPasswordCommand}"
+                        HeightRequest="46"
+                        HorizontalOptions="FillAndExpand"
+                        IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                        Text="Cambiar Contraseña"
                         TextColor="White">
                     </Button>
                 </StackLayout>

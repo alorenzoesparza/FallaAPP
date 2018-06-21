@@ -25,6 +25,8 @@ namespace FallaAPP.ViewModels
 
         private void Navigate()
         {
+            App.Master.IsPresented = false;
+
             if (this.NombrePagina == "LoginPage")
             {
                 Settings.Token = string.Empty;
@@ -34,6 +36,10 @@ namespace FallaAPP.ViewModels
                 mainViewModel.TokenType = string.Empty;
 
                 Application.Current.MainPage = new NavigationPage(new LoginPage());
+            }else if(this.NombrePagina == "MiPerfilPage")
+            {
+                MainViewModel.GetInstance().MiPerfil = new MiPerfilViewModel();
+                App.Navigator.PushAsync(new MiPerfilPage());
             }
         }
         #endregion

@@ -20,5 +20,20 @@ namespace FallaAPP.Helpers
                 Telefono = componente.Telefono,
             };
         }
+
+        public static object ToComponenteDomain(ComponenteLocal componente, byte[] imagenArray)
+        {
+            return new Componente
+            {
+                Apellidos = componente.Apellidos,
+                ComponenteId = componente.ComponenteId,
+                Email = componente.Email,
+                Foto = componente.Foto,
+                Foto500 = componente.Foto500,
+                ImageArray = imagenArray,
+                Nombre = componente.Nombre,
+                Telefono = componente.Telefono,
+            };
+        }
     }
 }
