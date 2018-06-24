@@ -19,9 +19,7 @@ namespace FallaAPP.Models
 
         public string Foto500 { get; set; }
 
-        //public byte[] ImageArray { get; set; }
-
-        //public string Password { get; set; }
+        public string Password { get; set; }
 
         public string FotoFullPath
         {

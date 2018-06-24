@@ -65,11 +65,6 @@ namespace FallaAPP.ViewModels
             this.IsEnabled = true;
             this.ImageSource = "no_image";
 
-            this.Nombre = "Nerea";
-            this.Apellidos = "Saiz Vilaverde";
-            this.Email = "nerea@gmail.com";
-            this.Password = "Nerea1**";
-            this.Confirm = "Nerea1**";
             this.Registrarse();
         }
         #endregion
@@ -323,7 +318,7 @@ namespace FallaAPP.ViewModels
 
             await Application.Current.MainPage.DisplayAlert(
                 "Confirmación",
-                "Has sido registrado correctamente",
+                "Has sido registrado correctamente.",
                 "Aceptar");
 
             await Application.Current.MainPage.Navigation.PopAsync();

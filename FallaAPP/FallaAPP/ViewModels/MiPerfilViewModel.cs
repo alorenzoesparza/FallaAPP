@@ -16,6 +16,7 @@ namespace FallaAPP.ViewModels
     {
         #region Servicios
         private ApiService apiService;
+        private DataService dataService;
         #endregion
 
         #region Atributos
@@ -50,9 +51,10 @@ namespace FallaAPP.ViewModels
         public MiPerfilViewModel()
         {
             this.apiService = new ApiService();
+            this.dataService = new DataService();
 
             this.Componente = MainViewModel.GetInstance().Componente;
-            this.ImageSource = Componente.FotoFullPath;
+            this.ImageSource = this.Componente.FotoFullPath;
             this.isEnabled = true;
         }
         #endregion
@@ -200,21 +202,12 @@ namespace FallaAPP.ViewModels
             }
 
             var componenteDomain = Converter.ToComponenteDomain(this.Componente, imagenArray);
-            //var componente = new Componente
-            //{
-            //    Apellidos = this.Apellidos,
-            //    Email = this.Email,
-            //    ImageArray = imagenArray,
-            //    Nombre = this.Nombre,
-            //    Password = this.Password,
-            //    Telefono = this.Telefono,
-            //};
 
             var apiBase = Application.Current.Resources["APIBase"].ToString();
-            var response = await this.apiService.Put(
+            var response = await this.apiService.ModificarComponente(
                 apiBase,
                 "/api",
-                "/Componentes",
+                "/Componentes/ModificarComponente",
                 MainViewModel.GetInstance().TokenType,
                 MainViewModel.GetInstance().Token,
                 componenteDomain
@@ -231,6 +224,25 @@ namespace FallaAPP.ViewModels
                     "Aceptar");
                 return;
             }
+
+            await Application.Current.MainPage.DisplayAlert(
+                "Confirmación",
+                "Perfil modifícado correctamente.",
+                "Aceptar");
+
+            var componenteApi = await this.apiService.GetComponentePorEmail(
+                apiBase,
+                "/api",
+                "/Componentes/GetComponentePorEmail",
+                MainViewModel.GetInstance().TokenType,
+                MainViewModel.GetInstance().Token,
+                this.Componente.Email
+                );
+            
+            var componenteLocal = Converter.ToComponenteLocal(componenteApi);
+
+            MainViewModel.GetInstance().Componente = componenteLocal;
+            this.dataService.Update(componenteLocal);
 
             this.isRunning = false;
             this.isEnabled = true;

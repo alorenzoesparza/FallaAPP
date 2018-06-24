@@ -17,11 +17,12 @@ namespace FallaAPP.Helpers
                 Foto = componente.Foto,
                 Foto500 = componente.Foto500,
                 Nombre = componente.Nombre,
+                Password = componente.Password,
                 Telefono = componente.Telefono,
             };
         }
 
-        public static object ToComponenteDomain(ComponenteLocal componente, byte[] imagenArray)
+        public static Componente ToComponenteDomain(ComponenteLocal componente, byte[] imagenArray)
         {
             return new Componente
             {
@@ -32,6 +33,7 @@ namespace FallaAPP.Helpers
                 Foto500 = componente.Foto500,
                 ImageArray = imagenArray,
                 Nombre = componente.Nombre,
+                Password = null,
                 Telefono = componente.Telefono,
             };
         }

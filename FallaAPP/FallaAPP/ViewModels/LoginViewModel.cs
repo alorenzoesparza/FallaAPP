@@ -60,9 +60,6 @@ namespace FallaAPP.ViewModels
             this.IsRemembered = true;
             this.IsEnabled = true;
             this.IsRunning = false;
-
-            this.Email = "mariam@gmail.com";
-            this.Password = "Mariam1*";
         }
         #endregion
 
@@ -167,8 +164,22 @@ namespace FallaAPP.ViewModels
             var componente = await this.apiService.GetComponentePorEmail(
                 apiBase, 
                 "/api",
-                "/Componentes/GetComponentePorEmail", 
+                "/Componentes/GetComponentePorEmail",
+                token.TokenType,
+                token.AccessToken,
                 this.Email);
+
+            if(componente == null)
+            {
+                this.IsRunning = false;
+                this.IsEnabled = true;
+
+                await Application.Current.MainPage.DisplayAlert(
+                    "Error",
+                    "No se encontro el Componente.",
+                    "Aceptar");
+                return;
+            }
 
             var componenteLocal = Converter.ToComponenteLocal(componente);
 

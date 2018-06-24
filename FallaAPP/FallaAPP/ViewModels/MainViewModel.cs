@@ -4,8 +4,12 @@ using System.Collections.ObjectModel;
 
 namespace FallaAPP.ViewModels
 {
-    public class MainViewModel
+    public class MainViewModel : BaseViewModel
     {
+        #region Atributos
+        private ComponenteLocal componente;
+        #endregion
+
         #region ViewModels
         public LoginViewModel Login { get; set; }
         public EventosViewModel Eventos { get; set; }
@@ -18,7 +22,11 @@ namespace FallaAPP.ViewModels
         public string Token { get; set; }
         public string TokenType { get; set; }
         public ObservableCollection<MenuItemViewModel> Menus { get; set; }
-        public ComponenteLocal Componente { get; set; }
+        public ComponenteLocal Componente
+        {
+            get { return this.componente; }
+            set { SetValue(ref this.componente, value); }
+        }
         #endregion
 
         #region Constructores
