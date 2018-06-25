@@ -82,8 +82,8 @@ namespace FallaAPP.ViewModels
                 apiBase,
                 "/api",
                 "/Eventos",
-                MainViewModel.GetInstance().TokenType,
-                MainViewModel.GetInstance().Token);
+                MainViewModel.GetInstance().Token.TokenType,
+                MainViewModel.GetInstance().Token.AccessToken);
 
             if (!response.IsSuccess)
             {

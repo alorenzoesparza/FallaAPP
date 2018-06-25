@@ -91,7 +91,10 @@
                         VerticalOptions="CenterAndExpand">
                 </ActivityIndicator>
                 <StackLayout
-                    Margin="30,0">
+                    HorizontalOptions="Center"
+                    Margin="20,10"
+                    Orientation="Horizontal"
+                    VerticalOptions="End">
                     <Button
                         BackgroundColor="Green"
                         BorderRadius="23"
@@ -99,7 +102,7 @@
                         HeightRequest="46"
                         HorizontalOptions="FillAndExpand"
                         IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
-                        Text="Salvar"
+                        Text="Guardar"
                         TextColor="White">
                     </Button>
                     <Button

@@ -29,11 +29,10 @@ namespace FallaAPP.ViewModels
 
             if (this.NombrePagina == "LoginPage")
             {
-                Settings.Token = string.Empty;
-                Settings.TokenType = string.Empty;
+                Settings.IsRemembered = "false";
                 var mainViewModel = MainViewModel.GetInstance();
-                mainViewModel.Token = string.Empty;
-                mainViewModel.TokenType = string.Empty;
+                mainViewModel.Token = null;
+                mainViewModel.Componente = null;
 
                 Application.Current.MainPage = new NavigationPage(new LoginPage());
             }else if(this.NombrePagina == "MiPerfilPage")

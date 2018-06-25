@@ -3,6 +3,7 @@ using FallaAPP.Models;
 using FallaAPP.Services;
 using FallaAPP.ViewModels;
 using FallaAPP.Views;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -21,22 +22,30 @@ namespace FallaAPP
         {
             InitializeComponent();
 
-            if (string.IsNullOrEmpty(Settings.Token))
-            {
-                MainPage = new NavigationPage(new LoginPage());
-            }
-            else
+            if (Settings.IsRemembered == "true")
             {
                 var dataService = new DataService();
                 var componente = dataService.First<ComponenteLocal>(false);
-                
-                var mainViewModel = MainViewModel.GetInstance();
-                mainViewModel.Token = Settings.Token;
-                mainViewModel.TokenType = Settings.TokenType;
-                mainViewModel.Componente = componente;
-                mainViewModel.Eventos = new EventosViewModel();
+                var token = dataService.First<TokenResponse>(false);
 
-                MainPage = new MasterPage();
+                if (token != null && token.Expires > DateTime.Now)
+                {
+                    var mainViewModel = MainViewModel.GetInstance();
+                    mainViewModel.Token = token;
+                    mainViewModel.Componente = componente;
+                    mainViewModel.Eventos = new EventosViewModel();
+
+                    MainPage = new MasterPage();
+                }
+                else
+                {
+                    MainPage = new NavigationPage(new LoginPage());
+                }
+
+            }
+            else
+            {
+                MainPage = new NavigationPage(new LoginPage());
             }
         }
         #endregion

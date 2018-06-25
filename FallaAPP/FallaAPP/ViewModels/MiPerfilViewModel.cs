@@ -1,12 +1,10 @@
 ﻿using FallaAPP.Helpers;
 using FallaAPP.Models;
 using FallaAPP.Services;
+using FallaAPP.Views;
 using GalaSoft.MvvmLight.Command;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -208,8 +206,8 @@ namespace FallaAPP.ViewModels
                 apiBase,
                 "/api",
                 "/Componentes/ModificarComponente",
-                MainViewModel.GetInstance().TokenType,
-                MainViewModel.GetInstance().Token,
+                MainViewModel.GetInstance().Token.TokenType,
+                MainViewModel.GetInstance().Token.AccessToken,
                 componenteDomain
                 );
 
@@ -234,9 +232,9 @@ namespace FallaAPP.ViewModels
                 apiBase,
                 "/api",
                 "/Componentes/GetComponentePorEmail",
-                MainViewModel.GetInstance().TokenType,
-                MainViewModel.GetInstance().Token,
-                this.Componente.Email
+                MainViewModel.GetInstance().Token.TokenType,
+                MainViewModel.GetInstance().Token.AccessToken,
+            this.Componente.Email
                 );
             
             var componenteLocal = Converter.ToComponenteLocal(componenteApi);
@@ -248,6 +246,20 @@ namespace FallaAPP.ViewModels
             this.isEnabled = true;
 
             await App.Navigator.PopAsync();
+        }
+
+        public ICommand CambiarPasswordCommand
+        {
+            get
+            {
+                return new RelayCommand(CambiarPassword);
+            }
+        }
+
+        private async void CambiarPassword()
+        {
+            MainViewModel.GetInstance().CambiarPassword = new CambiarPasswordViewModel();
+            await App.Navigator.PushAsync(new CambiarPasswordPage());
         }
         #endregion
     }

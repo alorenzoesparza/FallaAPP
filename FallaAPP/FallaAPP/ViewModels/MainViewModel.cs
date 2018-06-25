@@ -16,11 +16,11 @@ namespace FallaAPP.ViewModels
         public EventoViewModel Evento { get; set; }
         public RegistroViewModel Registro { get; set; }
         public MiPerfilViewModel MiPerfil { get; set; }
+        public CambiarPasswordViewModel CambiarPassword { get; set; }
         #endregion
 
         #region Propiedades
-        public string Token { get; set; }
-        public string TokenType { get; set; }
+        public TokenResponse Token { get; set; }
         public ObservableCollection<MenuItemViewModel> Menus { get; set; }
         public ComponenteLocal Componente
         {

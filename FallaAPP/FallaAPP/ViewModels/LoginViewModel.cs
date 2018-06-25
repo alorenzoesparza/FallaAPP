@@ -182,21 +182,26 @@ namespace FallaAPP.ViewModels
             }
 
             var componenteLocal = Converter.ToComponenteLocal(componente);
+            componenteLocal.Password = this.Password;
 
             var mainViewModel = MainViewModel.GetInstance();
 
-            mainViewModel.Token = token.AccessToken;
-            mainViewModel.TokenType = token.TokenType;
+            mainViewModel.Token = token;
             mainViewModel.Componente = componenteLocal;
             
             if (this.IsRemembered)
             {
                 // Guardar en persistencia el Token
-                Settings.Token = token.AccessToken;
-                Settings.TokenType = token.TokenType;
-                // Guardar en Base de Datos SQLite
-                this.dataService.DeleteAllAndInsert(componenteLocal);
+                Settings.IsRemembered = "true";
             }
+            else
+            {
+                Settings.IsRemembered = "false";
+            }
+
+            // Guardar en Base de Datos SQLite
+            this.dataService.DeleteAllAndInsert(componenteLocal);
+            this.dataService.DeleteAllAndInsert(token);
 
             mainViewModel.Eventos = new EventosViewModel();
             Application.Current.MainPage = new MasterPage();

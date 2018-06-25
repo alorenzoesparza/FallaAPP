@@ -21,6 +21,7 @@ namespace FallaAPP.Helpers
                 config.Platform,
                 Path.Combine(config.DirectoryDB, "Fallas.db3"));
             connection.CreateTable<ComponenteLocal>();
+            connection.CreateTable<TokenResponse>();
         }
 
         public void Insert<T>(T model)
