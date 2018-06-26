@@ -33,7 +33,7 @@ namespace FallaAPP.Helpers
                 Foto500 = componente.Foto500,
                 ImageArray = imagenArray,
                 Nombre = componente.Nombre,
-                Password = null,
+                Password = componente.Password,
                 Telefono = componente.Telefono,
             };
         }

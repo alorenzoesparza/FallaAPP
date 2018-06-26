@@ -1,4 +1,5 @@
 ﻿using FallaAPP.Helpers;
+using FallaAPP.Models;
 using FallaAPP.Services;
 using GalaSoft.MvvmLight.Command;
 using System;
@@ -43,6 +44,8 @@ namespace FallaAPP.ViewModels
         public CambiarPasswordViewModel()
         {
             this.apiService = new ApiService();
+            this.dataService = new DataService();
+
             this.isEnabled = true;
         }
         #endregion
@@ -103,7 +106,7 @@ namespace FallaAPP.ViewModels
 
                 await Application.Current.MainPage.DisplayAlert(
                     "Error",
-                    "La contraseña introducida como actual no es valida.",
+                    "La contraseña actual es incorrecta.",
                     "Aceptar");
                 return;
             }
@@ -158,10 +161,60 @@ namespace FallaAPP.ViewModels
                 return;
             }
 
-            IsRunning = true;
-            IsEnabled = false;
+            this.IsRunning = true;
+            this.IsEnabled = false;
 
+            var connection = await this.apiService.CheckConnection();
 
+            if (!connection.IsSuccess)
+            {
+                this.IsRunning = false;
+                this.IsEnabled = true;
+                await Application.Current.MainPage.DisplayAlert(
+                    "Error",
+                    connection.Message,
+                    "Aceptar");
+                return;
+            }
+
+            var request = new CambiarPasswordRequest
+            {
+                ActualPassword = this.ActualPassword,
+                Email = MainViewModel.GetInstance().Componente.Email,
+                NuevoPassword = this.NuevoPassword,
+            };
+
+            var apiBase = Application.Current.Resources["APIBase"].ToString();
+            var response = await this.apiService.CambiarPassword(
+                apiBase,
+                "/api",
+                "/Componentes/CambiarPassword",
+                MainViewModel.GetInstance().Token.TokenType,
+                MainViewModel.GetInstance().Token.AccessToken,
+                request);
+
+            if (!response.IsSuccess)
+            {
+                this.IsRunning = false;
+                this.IsEnabled = true;
+                await Application.Current.MainPage.DisplayAlert(
+                    "Error",
+                    "No se pudo cambiar la contraseña. Intentalo más tarde.",
+                    "Aceptar");
+                return;
+            }
+
+            MainViewModel.GetInstance().Componente.Password = this.NuevoPassword;
+            this.dataService.Update(MainViewModel.GetInstance().Componente);
+
+            this.IsRunning = false;
+            this.IsEnabled = true;
+
+            await Application.Current.MainPage.DisplayAlert(
+                    "Confirmación",
+                    "Contraseña modificada correctamente.",
+                    "Aceptar");
+            await App.Navigator.PopAsync();
         }
         #endregion
     }
