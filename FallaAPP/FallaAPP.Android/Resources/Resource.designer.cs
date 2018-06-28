@@ -28,6 +28,7 @@ namespace FallaAPP.Droid
 		{
 			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.ApplicationName = global::FallaAPP.Droid.Resource.String.ApplicationName;
 			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.Hello = global::FallaAPP.Droid.Resource.String.Hello;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.String.library_name = global::FallaAPP.Droid.Resource.String.library_name;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::FallaAPP.Droid.Resource.Attribute.actionBarSize;
 		}
 		
@@ -3982,11 +3983,11 @@ namespace FallaAPP.Droid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f0b003d
-			public const int ApplicationName = 2131427389;
+			// aapt resource value: 0x7f0b003e
+			public const int ApplicationName = 2131427390;
 			
-			// aapt resource value: 0x7f0b003c
-			public const int Hello = 2131427388;
+			// aapt resource value: 0x7f0b003d
+			public const int Hello = 2131427389;
 			
 			// aapt resource value: 0x7f0b0015
 			public const int abc_action_bar_home_description = 2131427349;
@@ -4083,6 +4084,9 @@ namespace FallaAPP.Droid
 			
 			// aapt resource value: 0x7f0b0035
 			public const int character_counter_pattern = 2131427381;
+			
+			// aapt resource value: 0x7f0b003c
+			public const int library_name = 2131427388;
 			
 			// aapt resource value: 0x7f0b0000
 			public const int mr_button_content_description = 2131427328;

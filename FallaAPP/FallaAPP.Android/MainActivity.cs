@@ -15,6 +15,8 @@ namespace FallaAPP.Droid
     {
         protected override void OnCreate(Bundle bundle)
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTUyOEAzMTM2MmUzMjJlMzBBSThRWGFtUlBydHF1Zy9NWkJEMno0ai9HZENvRTZHcmNua0NVeE1FQ1ZVPQ==;MTUyOUAzMTM2MmUzMjJlMzBiWWEyK0VOWDVMRjI5ZTdvSHZYRVUyZVY4d3NMN2owR25xRTh2aHhzTHVrPQ==");
+
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
