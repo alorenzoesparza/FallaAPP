@@ -107,6 +107,18 @@
                         Text="{Binding Evento.PrecioInfantiles, StringFormat='{0:C2}'}" 
                         VerticalOptions="Center"/>
                 </Grid>
+                <Button
+                    Margin="50,30"
+                    BackgroundColor="{Binding ColorBoton, Mode=TwoWay}"
+                    BorderRadius="23"
+                    Command="{Binding SelectBotonCommand}"
+                    FontAttributes="Bold"
+                    FontSize="Default"
+                    HeightRequest="46"
+                    IsEnabled="{Binding IsEnabled, Mode=TwoWay}"
+                    Text="{Binding TextoBoton, Mode=TwoWay}"
+                    TextColor="White">
+                </Button>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

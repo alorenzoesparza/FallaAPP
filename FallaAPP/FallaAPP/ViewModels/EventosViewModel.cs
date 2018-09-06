@@ -35,11 +35,9 @@ namespace FallaAPP.ViewModels
         public string Filter
         {
             get { return this.filter; }
-            set
-            {
+            set{
                 SetValue(ref this.filter, value);
-                this.Search();
-            }
+                this.Search(); }
         }
 
         public bool IsRefreshing
@@ -83,7 +81,8 @@ namespace FallaAPP.ViewModels
                 "/api",
                 "/Eventos",
                 MainViewModel.GetInstance().Token.TokenType,
-                MainViewModel.GetInstance().Token.AccessToken);
+                MainViewModel.GetInstance().Token.AccessToken,
+                MainViewModel.GetInstance().Componente.ComponenteId);
 
             if (!response.IsSuccess)
             {
@@ -92,23 +91,26 @@ namespace FallaAPP.ViewModels
                     "Error",
                     response.Message,
                     "Aceptar");
-                await Application.Current.MainPage.Navigation.PopAsync();
+
+                Application.Current.MainPage = new MasterPage();
                 return;
             }
 
             this.EventosList = (List<Evento>)response.Result;
+            //ModificarBoton();
+
             this.Eventos = new ObservableCollection<EventoItemViewModel>(
                 this.ToItemViewModel());
            
             this.IsRefreshing = false;
         }
-        #endregion
 
-        #region Metodos
         private IEnumerable<EventoItemViewModel> ToItemViewModel()
         {
             return this.EventosList.Select(a => new EventoItemViewModel
             {
+                Apuntado = a.Apuntado,
+                AsistenciaEventoId = a.AsistenciaEventoId,
                 EventoOficial = a.EventoOficial,
                 Descripcion = a.Descripcion,
                 FechaEvento = a.FechaEvento,
@@ -123,6 +125,21 @@ namespace FallaAPP.ViewModels
                 YaEfectuado = a.YaEfectuado,
             });
         }
+
+        //void ModificarBoton()
+        //{
+        //        if (Evento.Apuntado)
+        //        {
+        //            listAsistencia.TextoBoton = "Quitar";
+        //            listAsistencia.ColorBoton = "#A6212C";
+        //        }
+        //        else
+        //        {
+        //            listAsistencia.TextoBoton = "Apuntar";
+        //            // Otro verde #3D5C3A
+        //            listAsistencia.ColorBoton = "#638C3C";
+        //        }
+        //}
         #endregion
 
         #region Comandos

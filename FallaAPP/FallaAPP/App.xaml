@@ -10,7 +10,7 @@
             <!-- Instance Locator-->
             <infra:InstanceLocator x:Key="Locator"/>
 
-            <x:String x:Key="APIBase">http://api.antoniole.com</x:String>
+            <x:String x:Key="APIBase">http://aacvalencia-001-site1.itempurl.com</x:String>
         </ResourceDictionary>
 
     </Application.Resources>

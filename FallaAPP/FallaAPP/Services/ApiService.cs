@@ -66,13 +66,61 @@ namespace FallaAPP.Services
             }
         }
 
-        public async Task<Response> Get<T>(
+        public async Task<Response> Delete<T>(
             string urlBase,
             string servicePrefix,
             string controller,
             string tokenType,
             string accessToken,
-            int id)
+            T model)
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.BaseAddress = new Uri(urlBase);
+                client.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue(tokenType, accessToken);
+                
+                var url = string.Format(
+                    "{0}{1}/{2}",
+                    servicePrefix,
+                    controller,
+                    model.GetHashCode());
+
+                // Borrar registro
+                //var response = await client.GetAsync(url);
+                var response = await client.DeleteAsync(url);
+                var result = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var error = JsonConvert.DeserializeObject<Response>(result);
+                    error.IsSuccess = false;
+                    return error;
+                }
+
+                return new Response
+                {
+                    IsSuccess = true,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
+        }
+
+        public async Task<Response> Get<T>(
+                string urlBase,
+                string servicePrefix,
+                string controller,
+                string tokenType,
+                string accessToken,
+                int id)
         {
             try
             {
@@ -248,49 +296,6 @@ namespace FallaAPP.Services
             }
         }
 
-        public async Task<Response> CambiarPassword(
-            string urlBase,
-            string servicePrefix,
-            string controller,
-            string tokenType,
-            string accessToken,
-            CambiarPasswordRequest cambiarPasswordRequest)
-        {
-            try
-            {
-                var request = JsonConvert.SerializeObject(cambiarPasswordRequest);
-                var content = new StringContent(request, Encoding.UTF8, "application/json");
-                var client = new HttpClient();
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
-                client.BaseAddress = new Uri(urlBase);
-                var url = string.Format("{0}{1}", 
-                    servicePrefix, 
-                    controller);
-                var response = await client.PostAsync(url, content);
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    return new Response
-                    {
-                        IsSuccess = false,
-                    };
-                }
-
-                return new Response
-                {
-                    IsSuccess = true,
-                };
-            }
-            catch (Exception ex)
-            {
-                return new Response
-                {
-                    IsSuccess = false,
-                    Message = ex.Message,
-                };
-            }
-        }
-
         public async Task<Response> Post<T>(
             string urlBase,
             string servicePrefix,
@@ -339,49 +344,6 @@ namespace FallaAPP.Services
             }
         }
 
-        public async Task<Componente> GetComponentePorEmail(
-            string urlBase,
-            string servicePrefix,
-            string controller,
-            string tokenType,
-            string accessToken,
-            string email)
-        {
-            try
-            {
-                var model = new ComponenteRequest
-                { 
-                    Email = email,
-                };
-
-                var request = JsonConvert.SerializeObject(model);
-                var content = new StringContent(
-                    request,
-                    Encoding.UTF8,
-                    "application/json");
-                var client = new HttpClient();
-                client.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue(tokenType, accessToken);
-                client.BaseAddress = new Uri(urlBase);
-                var url = string.Format("{0}{1}", servicePrefix, controller);
-                var response = await client.PostAsync(url, content);
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    return null;
-                }
-
-                var result = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<Componente>(result);
-
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-
         public async Task<Response> Post<T>(
             string urlBase,
             string servicePrefix,
@@ -429,6 +391,91 @@ namespace FallaAPP.Services
             }
         }
 
+        public async Task<Response> CambiarPassword(
+            string urlBase,
+            string servicePrefix,
+            string controller,
+            string tokenType,
+            string accessToken,
+            CambiarPasswordRequest cambiarPasswordRequest)
+        {
+            try
+            {
+                var request = JsonConvert.SerializeObject(cambiarPasswordRequest);
+                var content = new StringContent(request, Encoding.UTF8, "application/json");
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
+                client.BaseAddress = new Uri(urlBase);
+                var url = string.Format("{0}{1}",
+                    servicePrefix,
+                    controller);
+                var response = await client.PostAsync(url, content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                    };
+                }
+
+                return new Response
+                {
+                    IsSuccess = true,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
+            }
+        }
+
+        public async Task<Componente> GetComponentePorEmail(
+            string urlBase,
+            string servicePrefix,
+            string controller,
+            string tokenType,
+            string accessToken,
+            string email)
+        {
+            try
+            {
+                var model = new ComponenteRequest
+                {
+                    Email = email,
+                };
+
+                var request = JsonConvert.SerializeObject(model);
+                var content = new StringContent(
+                    request,
+                    Encoding.UTF8,
+                    "application/json");
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue(tokenType, accessToken);
+                client.BaseAddress = new Uri(urlBase);
+                var url = string.Format("{0}{1}", servicePrefix, controller);
+                var response = await client.PostAsync(url, content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return null;
+                }
+
+                var result = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<Componente>(result);
+
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public async Task<Response> ModificarComponente<T>(
             string urlBase,
             string servicePrefix,
@@ -466,50 +513,6 @@ namespace FallaAPP.Services
                 {
                     IsSuccess = true,
                     Result = JsonConvert.DeserializeObject<T>(result)
-                };
-            }
-            catch (Exception ex)
-            {
-                return new Response
-                {
-                    IsSuccess = false,
-                    Message = ex.Message,
-                };
-            }
-        }
-
-        public async Task<Response> Delete<T>(
-            string urlBase,
-            string servicePrefix,
-            string controller,
-            string tokenType,
-            string accessToken,
-            T model)
-        {
-            try
-            {
-                var client = new HttpClient();
-                client.BaseAddress = new Uri(urlBase);
-                client.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue(tokenType, accessToken);
-                var url = string.Format(
-                    "{0}{1}/{2}",
-                    servicePrefix,
-                    controller,
-                    model.GetHashCode());
-                var response = await client.DeleteAsync(url);
-                var result = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    var error = JsonConvert.DeserializeObject<Response>(result);
-                    error.IsSuccess = false;
-                    return error;
-                }
-
-                return new Response
-                {
-                    IsSuccess = true,
                 };
             }
             catch (Exception ex)

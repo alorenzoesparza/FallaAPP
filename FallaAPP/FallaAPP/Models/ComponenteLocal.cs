@@ -15,6 +15,8 @@ namespace FallaAPP.Models
 
         public string Telefono { get; set; }
 
+        public bool EsInfantil { get; set; }
+
         public string Foto { get; set; }
 
         public string Foto500 { get; set; }
