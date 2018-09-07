@@ -476,7 +476,7 @@ namespace FallaAPP.Services
             }
         }
 
-        public async Task<Response> ModificarComponente<T>(
+        public async Task<Response> Put<T>(
             string urlBase,
             string servicePrefix,
             string controller,
@@ -490,16 +490,16 @@ namespace FallaAPP.Services
                 var content = new StringContent(
                     request,
                     Encoding.UTF8, "application/json");
-
                 var client = new HttpClient();
-                client.BaseAddress = new Uri(urlBase);
                 client.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue(tokenType, accessToken);
+                client.BaseAddress = new Uri(urlBase);
                 var url = string.Format(
-                    "{0}{1}",
+                    "{0}{1}/{2}",
                     servicePrefix,
-                    controller);
-                var response = await client.PostAsync(url, content);
+                    controller,
+                    model.GetHashCode());
+                var response = await client.PutAsync(url, content);
                 var result = await response.Content.ReadAsStringAsync();
 
                 if (!response.IsSuccessStatusCode)
@@ -509,10 +509,12 @@ namespace FallaAPP.Services
                     return error;
                 }
 
+                var newRecord = JsonConvert.DeserializeObject<T>(result);
+
                 return new Response
                 {
                     IsSuccess = true,
-                    Result = JsonConvert.DeserializeObject<T>(result)
+                    Result = newRecord,
                 };
             }
             catch (Exception ex)

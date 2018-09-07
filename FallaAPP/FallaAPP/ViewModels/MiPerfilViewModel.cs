@@ -202,10 +202,10 @@ namespace FallaAPP.ViewModels
             var componenteDomain = Converter.ToComponenteDomain(this.Componente, imagenArray);
 
             var apiBase = Application.Current.Resources["APIBase"].ToString();
-            var response = await this.apiService.ModificarComponente(
+            var response = await this.apiService.Put<Componente>(
                 apiBase,
                 "/api",
-                "/Componentes/ModificarComponente",
+                "/Componentes",
                 MainViewModel.GetInstance().Token.TokenType,
                 MainViewModel.GetInstance().Token.AccessToken,
                 componenteDomain
